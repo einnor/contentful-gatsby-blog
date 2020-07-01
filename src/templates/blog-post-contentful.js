@@ -7,15 +7,15 @@ import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 
 const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark
+  const post = data.contentfulPost
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        title={post.title}
+        description={post.subtitle}
       />
       <article>
         <header>
@@ -25,26 +25,17 @@ const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
               marginBottom: 0,
             }}
           >
-            {post.frontmatter.title}
+            {post.title}
           </h1>
-          <p
-            style={{
-              ...scale(-1 / 5),
-              display: `block`,
-              marginBottom: rhythm(1),
-            }}
-          >
-            {post.frontmatter.date}
-          </p>
         </header>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
+        <section dangerouslySetInnerHTML={{ __html: post.content.childContentfulRichText.html }} />
         <hr
           style={{
             marginBottom: rhythm(1),
           }}
         />
         <footer>
-          <Bio />
+          {/* <Bio /> */}
         </footer>
       </article>
 
@@ -60,15 +51,15 @@ const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
+              <Link to={previous.slug} rel="prev">
+                ← {previous.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
+              <Link to={next.slug} rel="next">
+                {next.title} →
               </Link>
             )}
           </li>
@@ -89,6 +80,7 @@ export const pageQuery = graphql`
     }
     contentfulPost(slug: { eq: $slug }) {
       title
+      subtitle
       author
       content {
         childContentfulRichText {
