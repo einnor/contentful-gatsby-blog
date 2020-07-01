@@ -21,10 +21,6 @@ const PostText = styled.div`
   flex: 75%;
 `;
 
-const HeaderText = styled.h3`
-  margin-top: 0;
-`;
-
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allContentfulPost.edges
@@ -42,15 +38,16 @@ const BlogIndex = ({ data, location }) => {
                 <Img fluid={node.image.fluid} />
               </PostImage>
               <PostText>
-                <HeaderText
+                <h3
                   style={{
+                    marginTop: 0,
                     marginBottom: rhythm(1 / 4),
                   }}
                 >
                   <Link style={{ boxShadow: `none` }} to={node.slug}>
                     {title}
                   </Link>
-                </HeaderText>
+                </h3>
                 {/* <small>{node.date}</small> */}
                 <p>{node.subtitle}</p>
               </PostText>
