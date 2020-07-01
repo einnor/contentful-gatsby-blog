@@ -27,6 +27,15 @@ const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
           >
             {post.title}
           </h1>
+          {/* <p
+            style={{
+              ...scale(-1 / 5),
+              display: `block`,
+              marginBottom: rhythm(1),
+            }}
+          >
+            {post.date}
+          </p> */}
         </header>
         <section dangerouslySetInnerHTML={{ __html: post.content.childContentfulRichText.html }} />
         <hr

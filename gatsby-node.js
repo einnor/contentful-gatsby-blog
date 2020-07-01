@@ -14,6 +14,7 @@ exports.createPages = async ({ graphql, actions }) => {
               slug
               title
               subtitle
+              author
               image {
                 fluid {
                   src
