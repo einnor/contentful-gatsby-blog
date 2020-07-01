@@ -5,6 +5,7 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
+import Img from "gatsby-image";
 
 const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
   const post = data.contentfulPost
@@ -19,6 +20,7 @@ const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
       />
       <article>
         <header>
+          <Img fluid={post.image.fluid} />
           <h1
             style={{
               marginTop: rhythm(1),
@@ -44,7 +46,7 @@ const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
           }}
         />
         <footer>
-          {/* <Bio /> */}
+          <Bio />
         </footer>
       </article>
 
@@ -91,6 +93,11 @@ export const pageQuery = graphql`
       title
       subtitle
       author
+      image {
+        fluid {
+          ...GatsbyContentfulFluid
+        }
+      }
       content {
         childContentfulRichText {
           html
